@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ponto Fácil</title>
+    <link rel="icon" href="{{ url_for('static', filename='images/Captura_de_tela_2025-08-21_194917-removebg-preview (1).png') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css.css') }}">
+</head>
+<body>
+    <header>
+        <a href="{{ url_for('pg_inicial') }}"><img class="logo" src="{{ url_for('static', filename='images/Captura_de_tela_2025-08-21_194917-removebg-preview (1).png') }}" alt="Logo Ponto Fácil"></a>
+        <h1>Ponto Fácil</h1>
+        <a class="link" href="{{ url_for('pg_mrc_ponto') }}"><img class="icon" src="{{ url_for('static', filename='images/mcr_ponto.png') }}" alt="">Bater ponto</a>
+        <a class="link" href="{{ url_for('pg_lembrete') }}"><img class="icon" src="{{ url_for('static', filename='images/lembrete.png') }}" alt="">Lembrete de ponto</a>
+        <a class="link" href="{{ url_for('pg_justificativa') }}"><img class="icon" src="{{ url_for('static', filename='images/justificativa.png') }}" alt="">Justificativa de ponto</a>
+        <a class="link" href="{{ url_for('pg_dados_pessoais') }}"><img class="icon" src="{{ url_for('static', filename='images/usuario.png') }}" alt="">Dados Pessoais</a>
+        <a class="link" href="{{ url_for('pg_suporte') }}"><img class="icon" src="{{ url_for('static', filename='images/suporte.png') }}" alt="">Suporte</a>
+    </header>
+    <br>
+    <br>
+
+    
+
+    <h1>Complemento de <br>Dados Pessoais</h1>
+    <br>
+    <br>
+    <br>
+
+    <form class="register-form" id="registerForm" action="{{ url_for('pg_dados_pessoais') }}" method="POST">
+    <div class="form-row2">
+        <div class="form-group">
+            <label for="telefone">Telefone</label>
+            <input type="text" id="telefone" name="telefone" value="{{ dados[0] if dados else '' }}" required>
+            
+            <label for="endereco">Endereço</label>
+            <input type="text" id="endereco" name="endereco" value="{{ dados[1] if dados else '' }}" required>
+  
+            <label for="nascimento">Data de Nascimento</label>
+            <input type="date" id="nascimento" name="nascimento" value="{{ dados[2] if dados else '' }}" required>
+            
+            <label for="genero">Gênero</label>
+            <select id="genero" name="genero" required>
+                <option value="masculino" {% if dados and dados[3] == 'masculino' %}selected{% endif %}>Masculino</option>
+                <option value="feminino" {% if dados and dados[3] == 'feminino' %}selected{% endif %}>Feminino</option>
+                <option value="outro" {% if dados and dados[3] == 'outro' %}selected{% endif %}>Outro</option>
+            </select>
+
+            <button type="submit" class="login-btn">
+                {% if dados %} Atualizar Dados {% else %} Cadastrar Colaborador {% endif %}
+            </button>
+        </div>  
+    </div>
+</form>
+
+</body>
+</html>

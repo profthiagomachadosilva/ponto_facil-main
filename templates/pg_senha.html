@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ponto Fácil</title>
+    <link rel="icon" href="{{ url_for('static', filename='images/Captura_de_tela_2025-08-21_194917-removebg-preview (1).png') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="login-card">
+            <div class="header">
+                <img src="{{ url_for('static', filename='/images/Captura_de_tela_2025-08-21_194917-removebg-preview (1).png') }}" alt="Logo Ponto Fácil" class="logo">
+                <h1 class="company-name">PONTO FÁCIL</h1>
+            </div>
+            
+            <h2 class="page-title">Esqueci minha senha</h2>
+            
+            <form class="forgot-form" id="forgotForm">
+                <div class="form-group">
+                    <label for="email">Email Empresarial</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                
+                <button type="submit" class="login-btn">Recuperar Senha</button>
+                
+                <div class="form-links">
+                    <a href="{{ url_for('pg_login') }}" class="back-link">Voltar</a>
+                </div>
+            </form>
+            
+            <div class="success-message" id="successMessage" style="display: none;">
+                <div class="success-content">
+                    <h3>Reset de senha enviado!</h3>
+                    <p>Reset de senha informado para o e-mail: <span id="emailDisplay"></span></p>
+                    <a href="pg_login.html" class="back-link">Voltar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        document.getElementById('forgotForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            document.getElementById('emailDisplay').textContent = email;
+            document.querySelector('.forgot-form').style.display = 'none';
+            document.getElementById('successMessage').style.display = 'block';
+        });
+    </script>
+</body>
+</html>
+

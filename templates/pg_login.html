@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ponto Fácil</title>
+    <link rel="icon" href="{{ url_for('static', filename='images/Captura_de_tela_2025-08-21_194917-removebg-preview (1).png') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css.css') }}">
+</head>
+<body>
+    <div class="container2">
+        <div class="login-card">
+            <div class="header">
+                <img src="{{ url_for('static', filename='images/Captura_de_tela_2025-08-21_194917-removebg-preview (1).png') }}" alt="Logo Ponto Fácil" class="logo">
+                <h1 class="company-name">PONTO FÁCIL</h1>
+            </div>
+
+            <!-- Formulário de login -->
+            <form class="login-form" action="{{ url_for('pg_login') }}" method="POST">
+                <div class="form-group">
+                    <label for="email">Email Empresarial</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+               
+                <div class="form-group">
+                    <label for="password">Senha</label>
+                    <!-- Mantemos id="password" para JS/CSS e name="senha" para Flask -->
+                    <input type="password" id="password" name="senha" required>
+                </div>
+               
+                <button type="submit" class="login-btn">Login</button>
+               
+                <div class="form-links">
+                    <a href="{{ url_for('pg_senha') }}" class="forgot-password">Esqueci minha senha</a>
+                    <a href="{{ url_for('pg_cadastro') }}" class="register">Cadastro</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

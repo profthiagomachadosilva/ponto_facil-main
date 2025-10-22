@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ponto Fácil</title>
+    <link rel="icon" href="{{ url_for('static', filename='images/Captura_de_tela_2025-08-21_194917-removebg-preview (1).png') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css.css') }}">
+    <script src="{{ url_for('static', filename='suporte.js') }}"></script>
+</head>
+<body>
+    
+    <header>
+        <a href="{{ url_for('pg_inicial') }}"><img class="logo" src="{{ url_for('static', filename='images/Captura_de_tela_2025-08-21_194917-removebg-preview (1).png') }}" alt="Logo Ponto Fácil"></a>
+        <h1>Ponto Fácil</h1>
+        <a class="link" href="{{ url_for('pg_mrc_ponto') }}"><img class="icon" src="{{ url_for('static', filename='images/mcr_ponto.png') }}" alt="">Bater ponto</a>
+        <a class="link" href="{{ url_for('pg_lembrete') }}"><img class="icon" src="{{ url_for('static', filename='images/lembrete.png') }}" alt="">Lembrete de ponto</a>
+        <a class="link" href="{{ url_for('pg_justificativa') }}"><img class="icon" src="{{ url_for('static', filename='images/justificativa.png') }}" alt="">Justificativa de ponto</a>
+        <a class="link" href="{{ url_for('pg_dados_pessoais') }}"><img class="icon" src="{{ url_for('static', filename='images/usuario.png') }}" alt="">Dados Pessoais</a>
+        <a class="link" href="{{ url_for('pg_suporte') }}"><img class="icon" src="{{ url_for('static', filename='images/suporte.png') }}" alt="">Suporte</a>
+    </header>
+
+    <div class="support-container">
+        <!-- Seção do Chat -->
+        <div class="chat-section">
+            <div class="chat-header">
+                <h2>🤖 Assistente Virtual</h2>
+                <p>Estou aqui para ajudar com suas dúvidas!</p>
+            </div>
+            
+            <div class="chat-messages" id="chat-messages">
+                <!-- Mensagens serão adicionadas aqui via JavaScript -->
+            </div>
+            
+            <div class="chat-input-area">
+                <div class="input-group">
+                    <input type="text" class="chat-input" id="chat-input" placeholder="Digite sua pergunta...">
+                    <button class="send-btn" id="send-btn" onclick="sendMessage()">
+                        ➤
+                    </button>
+                </div>
+                
+                <div class="quick-replies" id="quick-replies">
+                    <!-- Respostas rápidas serão adicionadas aqui -->
+                </div>
+                
+                <div class="chat-actions">
+                    <button class="action-btn" onclick="clearChat()">Limpar Chat</button>
+                    <button class="action-btn" onclick="exportChatHistory()">Exportar</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Informações de Suporte -->
+        <div class="support-info">
+            <div class="info-card">
+                <h3>📞 Contato Direto</h3>
+                <p>Precisa de ajuda personalizada? Entre em contato conosco:</p>
+                <button class="contact-btn" onclick="contactSupport()">
+                    Falar com Suporte
+                </button>
+            </div>
+
+            <div class="info-card">
+                <h3>❓ Perguntas Frequentes</h3>
+                <ul>
+                    <li><strong>Como fazer login?</strong><br>Use seu email empresarial e senha cadastrados.</li>
+                    <li><strong>Como bater ponto?</strong><br>Acesse "Marcação de Ponto" e clique em registrar entrada/saída.</li>
+                    <li><strong>Como criar lembretes?</strong><br>Vá em "Lembretes" e clique em "Novo Lembrete".</li>
+                    <li><strong>Esqueci minha senha</strong><br>Use "Esqueci minha senha" na tela de login.</li>
+                </ul>
+            </div>
+
+            <div class="info-card">
+                <h3>🛠️ Funcionalidades</h3>
+                <ul>
+                    <li>Marcação de ponto digital</li>
+                    <li>Histórico de registros</li>
+                    <li>Lembretes personalizados</li>
+                    <li>Recuperação de senha</li>
+                    <li>Suporte via chatbot</li>
+                    <li>Interface responsiva</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Contato -->
+    <div class="modal" id="contact-modal">
+        <div class="modal-content">
+            <h2>Contato Direto</h2>
+            <form id="contact-form" action="{{ url_for('pg_suporte') }}" method="POST">
+                <div class="form-group">
+                    <label for="nome">Nome *</label>
+                    <input type="text" id="nome" name="nome" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="matricula">Matricula *</label>
+                    <input type="text" id="matricula" name="matricula" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email *</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="assunto">Assunto *</label>
+                    <select id="asstunto" name="assunto" required>
+                        <option value="">Selecione um assunto</option>
+                        <option value="login">Problemas de Login</option>
+                        <option value="ponto">Marcação de Ponto</option>
+                        <option value="lembrete">Lembretes</option>
+                        <option value="tecnico">Problema Técnico</option>
+                        <option value="sugestao">Sugestão</option>
+                        <option value="outro">Outro</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="descricao">Mensagem *</label>
+                    <textarea id="descricao" name="descricao" required placeholder="Descreva sua dúvida ou problema..."></textarea>
+                </div>
+                
+                <div class="modal-actions">
+                    <button type="button" class="btn-secondary" onclick="closeContactModal()">Cancelar</button>
+                    <button type="submit" class="btn-primary">Enviar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

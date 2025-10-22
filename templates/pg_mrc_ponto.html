@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html long="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ponto Fácil</title>
+    <link rel="icon" href="{{ url_for('static', filename='images/Captura_de_tela_2025-08-21_194917-removebg-preview (1).png') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css.css') }}">
+</head>
+<body>
+    <header>
+        <a href="{{ url_for('pg_inicial') }}"><img class="logo" src="{{ url_for('static', filename='images/Captura_de_tela_2025-08-21_194917-removebg-preview (1).png') }}" alt="Logo Ponto Fácil"></a>
+        <h1>Ponto Fácil</h1>
+        <a class="link" href="{{ url_for('pg_mrc_ponto') }}"><img class="icon" src="{{ url_for('static', filename='images/mcr_ponto.png') }}" alt="">Bater ponto</a>
+        <a class="link" href="{{ url_for('pg_lembrete') }}"><img class="icon" src="{{ url_for('static', filename='images/lembrete.png') }}" alt="">Lembrete de ponto</a>
+        <a class="link" href="{{ url_for('pg_justificativa') }}"><img class="icon" src="{{ url_for('static', filename='images/justificativa.png') }}" alt="">Justificativa de ponto</a>
+        <a class="link" href="{{ url_for('pg_dados_pessoais') }}"><img class="icon" src="{{ url_for('static', filename='images/usuario.png') }}" alt="">Dados Pessoais</a>
+        <a class="link" href="{{ url_for('pg_suporte') }}"><img class="icon" src="{{ url_for('static', filename='images/suporte.png') }}" alt="">Suporte</a>
+    </header>
+    <main class="main_ponto">
+    <div class="ponto-container">
+        <h2 class="ponto-title">Bem-vindo, {{ nome }}</h2>
+        <p class="ponto-subtitle">Jornada: <span class="badge jornada">{{ jornada }}</span></p>
+
+        <h3 class="ponto-section">Último ponto registrado:</h3>
+        <ul class="ponto-list">
+            {% if pontos %}
+              <li>{{ pontos[-1][3] }} - {{ pontos[-1][4] }}</li>
+             {% else %}
+            <li class="empty">Nenhum ponto registrado hoje.</li>
+                {% endif %}
+        </ul>
+
+        <form method="POST" class="ponto-form">
+            <button type="submit" class="btn-ponto">Bater Ponto</button>
+        </form>
+
+        <div class="flash-messages">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, msg in messages %}
+                        <span class="badge {{ category }}">{{ msg }}</span><br>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            
+        </div>
+        <br>
+        <br>
+        <a href="{{ url_for('pg_pontos_mensais') }}" class="btn-pontos_mensais">Ver pontos do mês</a>
+    </div>
+    </main>
+</body>
+</html>

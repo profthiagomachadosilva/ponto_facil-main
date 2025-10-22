@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dias do mês {{ mes }}</title>
+    <link rel="icon" href="{{ url_for('static', filename='images/Captura_de_tela_2025-08-21_194917-removebg-preview (1).png') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css.css') }}">
+</head>
+<body>
+<header>
+    <a href="{{ url_for('pg_inicial') }}"><img class="logo" src="{{ url_for('static', filename='images/Captura_de_tela_2025-08-21_194917-removebg-preview (1).png') }}" alt="Logo Ponto Fácil"></a>
+    <h1>Ponto Fácil</h1>
+    <a class="link" href="{{ url_for('pg_mrc_ponto') }}"><img class="icon" src="{{ url_for('static', filename='images/mcr_ponto.png') }}" alt="">Bater ponto</a>
+    <a class="link" href="{{ url_for('pg_lembrete') }}"><img class="icon" src="{{ url_for('static', filename='images/lembrete.png') }}" alt="">Lembrete de ponto</a>
+    <a class="link" href="{{ url_for('pg_justificativa') }}"><img class="icon" src="{{ url_for('static', filename='images/justificativa.png') }}" alt="">Justificativa de ponto</a>
+    <a class="link" href="{{ url_for('pg_dados_pessoais') }}"><img class="icon" src="{{ url_for('static', filename='images/usuario.png') }}" alt="">Dados Pessoais</a>
+    <a class="link" href="{{ url_for('pg_suporte') }}"><img class="icon" src="{{ url_for('static', filename='images/suporte.png') }}" alt="">Suporte</a>
+</header>
+<main class="main_ponto">
+<div class="ponto-container">
+    <h2 class="ponto-title">Dias com registros em {{ mes }}:</h2>
+    <ul class="ponto-list">
+        {% for dia in dias %}
+            <li><a class="link_fdd" href="{{ url_for('pontos_dia', mes=mes, dia=dia) }}">{{ dia }}</a></li>
+        {% else %}
+            <li class="empty">Nenhum ponto registrado neste mês.</li>
+        {% endfor %}
+    </ul>
+    <a href="{{ url_for('pg_pontos_mensais') }}" class="btn-pontos_mensais">Voltar aos meses</a>
+</div>
+</main>
+</body>
+</html>
