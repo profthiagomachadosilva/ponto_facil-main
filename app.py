@@ -1,23 +1,26 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, session
 import mysql.connector
 from datetime import datetime
+import os
+from dotenv import load_dotenv
+
+# Carrega variáveis do .env
+load_dotenv()
 
 app = Flask(__name__)
-app.secret_key = "sua_chave_secreta"  # Necessário para flash e sessão
+app.secret_key = os.getenv("FLASK_SECRET_KEY", "chave_padrao")  # fallback
 
-# 🔹 Configuração do banco MySQL (Railway)
+# Configuração do banco MySQL via variáveis de ambiente ou direto
 DB_CONFIG = {
-    "host": "mysql.railway.internal",
-    "user": "root",
-    "password": "IXwRMRfyWbNiQWXIeGomwHymWXgLvTBB",
-    "database": "railway",
-    "port": 3306
+    "host": os.getenv("MYSQLHOST", "switchback.proxy.rlwy.net"),
+    "user": os.getenv("MYSQLUSER", "root"),
+    "password": os.getenv("MYSQLPASSWORD", "IXwRMRfyWbNiQWXIeGomwHymWXgLvTBB"),
+    "database": os.getenv("MYSQLDATABASE", "railway"),
+    "port": int(os.getenv("MYSQLPORT", 16886))
 }
 
-# 🔹 Função para conectar ao banco MySQL
 def conectar():
     return mysql.connector.connect(**DB_CONFIG)
-
 # ======================== LOGIN ========================
 @app.route('/', methods=["GET", "POST"])
 def pg_login():
