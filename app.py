@@ -5,15 +5,16 @@ from datetime import datetime
 app = Flask(__name__)
 app.secret_key = "sua_chave_secreta"  # Necessário para flash e sessão
 
-# Configuração do banco MySQL
+# 🔹 Configuração do banco MySQL (Railway)
 DB_CONFIG = {
-    "host": "localhost",
+    "host": "mysql.railway.internal",
     "user": "root",
-    "password": "",  # Coloque sua senha aqui
-    "database": "ponto_facil"
+    "password": "IXwRMRfyWbNiQWXIeGomwHymWXgLvTBB",
+    "database": "railway",
+    "port": 3306
 }
 
-# Função para conectar ao banco MySQL
+# 🔹 Função para conectar ao banco MySQL
 def conectar():
     return mysql.connector.connect(**DB_CONFIG)
 
